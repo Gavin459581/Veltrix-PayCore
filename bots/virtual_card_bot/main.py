@@ -101,8 +101,16 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # ================= RUN ================= #
 
-app = ApplicationBuilder().token(BOT_TOKEN).build()
+import os
+from telegram import Update
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+
+TOKEN = os.getenv("BOT_TOKEN")
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("🚀 Veltrix PayCore Live!")
+
+app = ApplicationBuilder().token(TOKEN).build()
 app.add_handler(CommandHandler("start", start))
-app.add_handler(CallbackQueryHandler(button))
 
 app.run_polling()
